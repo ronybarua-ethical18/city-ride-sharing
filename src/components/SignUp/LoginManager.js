@@ -8,34 +8,14 @@ export const initializeFirebase = () => {
     }
 }
 
-export const googleSignIn = () => {
-    const googleProvider = new firebase.auth.GoogleAuthProvider();
-    return firebase.auth().signInWithPopup(googleProvider)
-    .then(res => {
-      const {displayName, photoURL, email} = res.user;
-      const signedInUser = {
-        isSignedIn: true,
-        name: displayName,
-        email: email,
-        photo: photoURL,
-        success: true
-      };
-      console.log(signedInUser);
-      return signedInUser;
-    })
-    .catch(err => {
-      console.log(err);
-      console.log(err.message);
-    })
-}
-
 export const createUserWithEmailAndPassword = (name, email, password) => {
     return firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((res) => {
             const newUserInfo = res.user;
-            newUserInfo.error = '';
             newUserInfo.success = true;
+            newUserInfo.error = '';
             updateUserInfo(name);
+            console.log(newUserInfo);
             return newUserInfo;
         })
         .catch((error) => {
@@ -49,8 +29,9 @@ export const signInWithEmailAndPassword = (email, password) => {
     return firebase.auth().signInWithEmailAndPassword(email, password)
         .then((res) => {
             const newUserInfo = res.user;
-            newUserInfo.error = '';
             newUserInfo.success = true;
+            newUserInfo.error = '';
+            console.log(newUserInfo);
             return newUserInfo;
         })
         .catch((error) => {

@@ -8,9 +8,9 @@ import {
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
-import RideDetails from './components/RideDetails/RideDetails';
 import { createContext, useState } from 'react';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import Destination from './components/Destination/Destination';
 export const UserContext = createContext();
 function App() {
   const[loggedInUser, setLoggedInUser] = useState({});
@@ -19,7 +19,7 @@ function App() {
       <UserContext.Provider value = {[loggedInUser, setLoggedInUser]}>
         <Router>
           <Header></Header>
-          {/* <p>Name: {loggedInUser.displayName}</p> */}
+          <p>Name: {loggedInUser.name}</p>
           <Switch>
             <Route exact path="/">
             <Home></Home>
@@ -27,8 +27,8 @@ function App() {
             <Route path="/home">
               <Home></Home>
             </Route>
-            <PrivateRoute path="/vehicles/:Id">
-              <RideDetails></RideDetails>
+            <PrivateRoute path="/vehicles/:vehicleId">
+              <Destination></Destination>
             </PrivateRoute>
             <Route path="/login">
               <Login></Login>
