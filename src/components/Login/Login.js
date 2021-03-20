@@ -21,21 +21,15 @@ const Login = () => {
         password: '',
         success: false
     })
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [newUser, setNewUser] = useState(false);
     const [password, setPassword] = useState('');
+    const [isPassCorrect, setISPassCorrect] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isError, setIsError] = useState('');
 
-    const IsValidate = (event) => {
-        setConfirmPassword(event.target.value);
-        if (password !== confirmPassword) {
-
-            setIsError("Password and confirm password should be matched");
-        }else {
-            setIsError(" ");
-        }
-    }
     let history = useHistory();
     let location = useLocation();
     let { from } = location.state || { from: { pathname: "/" } };
@@ -44,12 +38,33 @@ const Login = () => {
         let isFormValid = true;
         if (event.target.name === 'email') {
             isFormValid = /\S+@\S+\.\S+/.test(event.target.value);
+            if (!isFormValid) {
+                setEmailError('Email is invalid')
+            }
+            else {
+                setEmailError('');
+            }
         }
+
         if (event.target.name === 'password') {
             const passwordLength = event.target.value.length > 6;
             const hasNumber = /\d{1}/.test(event.target.value);
             isFormValid = passwordLength && hasNumber;
+            if (!isFormValid) {
+                setPasswordError('Password should have number and letters');
+            }
+            else {
+                setPasswordError('');
+            }
         }
+
+        //matching the password and confirm password field
+        if (password !== confirmPassword) {
+            setIsError("Password and confirm password should be matched");
+        } else {
+            setIsError("");
+        }
+
         if (isFormValid) {
             const newUserInfo = { ...user };
             newUserInfo[event.target.name] = event.target.value;
@@ -79,6 +94,12 @@ const Login = () => {
                     handleResponse(res, true);
                 })
         }
+        if(password !== user.password){
+            setISPassCorrect('Entered Password is wrong');
+        }
+        else{
+            setISPassCorrect('');
+        }
 
         event.preventDefault();
     }
@@ -88,13 +109,13 @@ const Login = () => {
                 handleResponse(res, true);
             })
     }
-    const handleGithhubSignIn = () =>{
+    const handleGithhubSignIn = () => {
         githubSignIn()
             .then(res => {
                 handleResponse(res, true);
                 console.log(res);
             })
-    } 
+    }
     return (
         <div className="log-in authentic-field text-white">
 
@@ -104,33 +125,42 @@ const Login = () => {
                     <Col md={6} className="p-4 text-center shadow mb-4">
                         <img src={avatar} className="img-fluid rounded avatar mb-2" alt="" />
                         <h4 className="display-6">Create New Account</h4>
-                        <p style={{ color: 'red' }}>{user.error}</p>
-                        {user.success && <p style={{ color: 'green' }}>User {newUser ? 'Created' : 'Logged In'} Successfully</p>}
                         <form action="" onSubmit={handleSubmit} className="mt-4">
                             <div className="input-field mb-3">
                                 <FontAwesomeIcon className="icons" icon={faSignature}></FontAwesomeIcon>
-                                <input onBlur={handleBlur} type="text" name="name" placeholder="Enter your name" />
+                                <input onBlur={handleBlur}
+                                    type="text"
+                                    name="name"
+                                    placeholder="Enter your name" required />
                             </div>
 
                             <div className="input-field mb-3">
                                 <FontAwesomeIcon className="icons" icon={faUser}></FontAwesomeIcon>
-                                <input onBlur={handleBlur} type="text" name="email" placeholder="Enter your email" />
+                                <input onBlur={handleBlur}
+                                    type="text"
+                                    name="email"
+                                    placeholder="Enter your email" required />
                             </div>
-
+                            <p>{emailError}</p>
                             <div className="input-field mb-3">
                                 <FontAwesomeIcon className="icons" icon={faLock}></FontAwesomeIcon>
-                                <input value={password} onChange={(event) => setPassword(event.target.value)} onBlur={handleBlur} type="password" name="password" placeholder="Enter password" id="" />
+                                <input value={password}
+                                    onChange={(event) => setPassword(event.target.value)}
+                                    onBlur={handleBlur}
+                                    type="password"
+                                    name="password"
+                                    placeholder="Enter password" id="" required />
                             </div>
-
+                            <p>{passwordError}</p>
                             <div className="input-field mb-3">
                                 <FontAwesomeIcon className="icons" icon={faLock}></FontAwesomeIcon>
                                 <input
                                     value={confirmPassword}
-                                    onChange={(event) => IsValidate(event)}
+                                    onChange={(event) => setConfirmPassword(event.target.value)}
                                     onBlur={handleBlur}
                                     type="password"
                                     name="confirm-password"
-                                    placeholder="Confirm password" id="" />
+                                    placeholder="Confirm password" id="" required />
                             </div>
                             <p>{isError}</p>
                             <button type="submit" className="submit-button mb-2">Sign Up</button>
@@ -138,9 +168,15 @@ const Login = () => {
                             <p>Sign in with social platforms</p>
 
                             <div className="social-icons d-flex w-100 justify-content-center ">
-                                <FontAwesomeIcon onClick={handleGoogleSignIn} icon={faGoogle} className="social-icon mr-3"></FontAwesomeIcon>
-                                <FontAwesomeIcon onClick={handleGithhubSignIn} icon={faGithub} className="social-icon mr-3"></FontAwesomeIcon>
-                                <FontAwesomeIcon onClick="" icon={faFacebook} className="social-icon mr-3"></FontAwesomeIcon>
+                                <FontAwesomeIcon onClick={handleGoogleSignIn}
+                                    icon={faGoogle}
+                                    className="social-icon mr-3"></FontAwesomeIcon>
+                                <FontAwesomeIcon onClick={handleGithhubSignIn}
+                                    icon={faGithub}
+                                    className="social-icon mr-3"></FontAwesomeIcon>
+                                <FontAwesomeIcon onClick=""
+                                    icon={faFacebook}
+                                    className="social-icon mr-3"></FontAwesomeIcon>
                             </div>
                         </form>
                     </Col>
@@ -153,19 +189,24 @@ const Login = () => {
                     <Col md={6} className="p-4 text-center shadow">
                         <img src={avatar} className="img-fluid rounded avatar mb-2" alt="" />
                         <h4 className="display-5">User Authentication</h4>
-                        <p style={{ color: 'red' }}>{user.error}</p>
-                        {user.success && <p style={{ color: 'green' }}>User {!newUser ? 'Created' : 'Logged In'} Successfully</p>}
                         <form action="" onSubmit={handleSubmit} className="mt-4">
                             <div className="input-field mb-3">
                                 <FontAwesomeIcon className="icons" icon={faUser}></FontAwesomeIcon>
-                                <input onBlur={handleBlur} type="text" name="email" placeholder="Enter your email" required />
+                                <input onBlur={handleBlur}
+                                    type="text"
+                                    name="email"
+                                    placeholder="Enter your email" required />
                             </div>
-
+                            <p>{emailError}</p>
                             <div className="input-field mb-3">
                                 <FontAwesomeIcon className="icons" icon={faLock}></FontAwesomeIcon>
-                                <input onBlur={handleBlur} type="password" name="password" placeholder="Enter password" id="" required />
+                                <input onBlur={handleBlur}
+                                    type="password"
+                                    name="password"
+                                    placeholder="Enter password" id="" required />
                             </div>
-
+                            <p>{passwordError}</p>
+                            <p>{isPassCorrect}</p>
                             <div className="checkbox d-flex justify-content-space-between mb-2">
                                 <div>
                                     <input type="checkbox" onChange="" name="newUser" id="" />
@@ -176,14 +217,20 @@ const Login = () => {
 
                             <button type="submit" className="submit-button mb-2">Log In</button>
                             <p>Don't have an account? <b className="text-primary"
-                             onClick={() => setNewUser(!newUser)}><b className="text-white">create new account</b></b></p>
+                                onClick={() => setNewUser(!newUser)}><b className="text-white">create new account</b></b></p>
                             <p>Sign in with social platforms</p>
 
                             <div className="social-icons d-flex w-100 justify-content-center  ">
-    
-                                <FontAwesomeIcon onClick={handleGoogleSignIn} icon={faGoogle} className="social-icon mr-3"></FontAwesomeIcon>
-                                <FontAwesomeIcon onClick={handleGithhubSignIn} icon={faGithub} className="social-icon mr-3"></FontAwesomeIcon>
-                                <FontAwesomeIcon onClick="" icon={faFacebook} className="social-icon mr-3"></FontAwesomeIcon>
+
+                                <FontAwesomeIcon onClick={handleGoogleSignIn}
+                                    icon={faGoogle}
+                                    className="social-icon mr-3"></FontAwesomeIcon>
+                                <FontAwesomeIcon onClick={handleGithhubSignIn}
+                                    icon={faGithub}
+                                    className="social-icon mr-3"></FontAwesomeIcon>
+                                <FontAwesomeIcon onClick=""
+                                    icon={faFacebook}
+                                    className="social-icon mr-3"></FontAwesomeIcon>
                             </div>
                         </form>
                     </Col>
