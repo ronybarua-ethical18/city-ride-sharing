@@ -134,7 +134,7 @@ const Login = () => {
                             </div>
                             <p>{isError}</p>
                             <button type="submit" className="submit-button mb-2">Sign Up</button>
-                            <p>Already have an account? <b className="text-primary" onClick={() => setNewUser(!newUser)}>Log in</b> </p>
+                            <p>Already have an account? <b className="text-primary" onClick={() => setNewUser(!newUser)}><b className="text-white">Log in</b></b> </p>
                             <p>Sign in with social platforms</p>
 
                             <div className="social-icons d-flex w-100 justify-content-center ">
@@ -152,7 +152,7 @@ const Login = () => {
                 <Row className="m-3 d-flex justify-content-center">
                     <Col md={6} className="p-4 text-center shadow">
                         <img src={avatar} className="img-fluid rounded avatar mb-2" alt="" />
-                        <h4 className="display-6">User Authentication</h4>
+                        <h4 className="display-5">User Authentication</h4>
                         <p style={{ color: 'red' }}>{user.error}</p>
                         {user.success && <p style={{ color: 'green' }}>User {!newUser ? 'Created' : 'Logged In'} Successfully</p>}
                         <form action="" onSubmit={handleSubmit} className="mt-4">
@@ -171,11 +171,12 @@ const Login = () => {
                                     <input type="checkbox" onChange="" name="newUser" id="" />
                                     <label htmlFor="newUser" className="ml-2">Remember Me </label>
                                 </div>
-                                <a href="/" className="ml-auto">Forgot Password?</a>
+                                <a href="/" className="ml-auto"><b className="text-white">Forgot Password?</b></a>
                             </div>
 
                             <button type="submit" className="submit-button mb-2">Log In</button>
-                            <p>Don't have an account? <b className="text-primary" onClick={() => setNewUser(!newUser)}>create new account</b></p>
+                            <p>Don't have an account? <b className="text-primary"
+                             onClick={() => setNewUser(!newUser)}><b className="text-white">create new account</b></b></p>
                             <p>Sign in with social platforms</p>
 
                             <div className="social-icons d-flex w-100 justify-content-center  ">
