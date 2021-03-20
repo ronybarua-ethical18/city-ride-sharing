@@ -11,22 +11,38 @@ export const initializeFirebase = () => {
 export const googleSignIn = () => {
     const googleProvider = new firebase.auth.GoogleAuthProvider();
     return firebase.auth().signInWithPopup(googleProvider)
-    .then(res => {
-      const {displayName, photoURL, email} = res.user;
-      const signedInUser = {
-        isSignedIn: true,
-        name: displayName,
-        email: email,
-        photo: photoURL,
-        success: true
-      };
-      console.log(signedInUser);
-      return signedInUser;
-    })
-    .catch(err => {
-      console.log(err);
-      console.log(err.message);
-    })
+        .then(res => {
+            const { displayName, photoURL, email } = res.user;
+            const signedInUser = {
+                isSignedIn: true,
+                name: displayName,
+                email: email,
+                photo: photoURL,
+                success: true
+            };
+            console.log(signedInUser);
+            return signedInUser;
+        })
+        .catch(err => {
+            console.log(err.code);
+            console.log(err.message);
+        })
+}
+export const githubSignIn = () => {
+    var githubProvider = new firebase.auth.GithubAuthProvider();
+
+    return firebase.auth().signInWithPopup(githubProvider)
+        .then((result) => {
+            /** @type {firebase.auth.OAuthCredential} */
+            var token = result.credential.accessToken;
+            var user = result.user;
+            user.success = true;
+            return user;
+        }).catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(errorCode, errorMessage)
+        });
 }
 
 export const createUserWithEmailAndPassword = (name, email, password) => {

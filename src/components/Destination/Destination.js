@@ -3,7 +3,7 @@ import './Destination.css';
 import serviceData from '../../FakeData/fakeData.json';
 import { useParams } from 'react-router';
 import React, { useState } from 'react';
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { GoogleMap } from './GoogleMap';
 const Destination = () => {
     // list of states 
     const [pickFrom, setPickFrom] = useState('');
@@ -33,7 +33,7 @@ const Destination = () => {
                             <Form.Label>Date</Form.Label>
                             <Form.Control onChange={event => setDate(event.target.value)} type="date" placeholder="Date" />
                         </Form.Group>
-                        <Button onClick={() => setResult(!result)} variant="primary" className="w-100">
+                        <Button className="main-button" onClick={() => setResult(!result)} variant="primary" className="w-100">
                             Search
                         </Button>
                     </Form>}
@@ -61,15 +61,7 @@ const Destination = () => {
                     </div>}
                 </Col>
                 <Col md={8}>
-                    <Map google={this.props.google} zoom={14}>
-
-                        <Marker onClick={this.onMarkerClick}
-                            name={'Current location'} />
-
-                        <InfoWindow onClose={this.onInfoWindowClose}>
-
-                        </InfoWindow>
-                    </Map>
+                   <GoogleMap></GoogleMap>
                 </Col>
             </Row>
         </Container>
@@ -77,6 +69,4 @@ const Destination = () => {
 };
 
 
-export default GoogleApiWrapper({
-    apiKey: ("AIzaSyAF-qcw5M7FfE1SWysDNZgf410YlHmSUw8")
-  })(Destination)
+export default Destination;

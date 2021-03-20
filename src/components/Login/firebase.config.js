@@ -1,9 +1,9 @@
 const firebaseConfig = {
-    apiKey: "AIzaSyAE-7I0VYy96G4s9x84pP1ELfqOAiAdjqo",
-    authDomain: "city-ride-share.firebaseapp.com",
-    projectId: "city-ride-share",
-    storageBucket: "city-ride-share.appspot.com",
-    messagingSenderId: "303830059348",
-    appId: "1:303830059348:web:784ca19fdf82ea341860c1"
-  };
+  apiKey: "AIzaSyASJlXYY3lw_WqMfJtP0ejcuRXSej1ILro",
+  authDomain: "city-ride-sharing-79ae4.firebaseapp.com",
+  projectId: "city-ride-sharing-79ae4",
+  storageBucket: "city-ride-sharing-79ae4.appspot.com",
+  messagingSenderId: "624147061859",
+  appId: "1:624147061859:web:73be3555bb60dc4035ac56"
+};
   export default firebaseConfig;

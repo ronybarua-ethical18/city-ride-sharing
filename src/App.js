@@ -18,8 +18,7 @@ function App() {
     <div className="App">
       <UserContext.Provider value = {[loggedInUser, setLoggedInUser]}>
         <Router>
-          <Header></Header>
-          <p>Name: {loggedInUser.name}</p>
+          <Header loggedInUser = {loggedInUser}></Header>
           <Switch>
             <Route exact path="/">
             <Home></Home>

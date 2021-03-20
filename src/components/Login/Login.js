@@ -6,7 +6,7 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faLock, faSignature } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Col, Container, Row } from 'react-bootstrap';
-import { createUserWithEmailAndPassword, googleSignIn, initializeFirebase, signInWithEmailAndPassword } from './LoginManager';
+import { createUserWithEmailAndPassword, githubSignIn, googleSignIn, initializeFirebase, signInWithEmailAndPassword } from './LoginManager';
 import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router';
 const Login = () => {
@@ -32,9 +32,8 @@ const Login = () => {
         if (password !== confirmPassword) {
 
             setIsError("Password and confirm password should be matched");
-        }
-        else {
-            setIsError('');
+        }else {
+            setIsError(" ");
         }
     }
     let history = useHistory();
@@ -89,6 +88,13 @@ const Login = () => {
                 handleResponse(res, true);
             })
     }
+    const handleGithhubSignIn = () =>{
+        githubSignIn()
+            .then(res => {
+                handleResponse(res, true);
+                console.log(res);
+            })
+    } 
     return (
         <div className="log-in authentic-field">
 
@@ -132,9 +138,9 @@ const Login = () => {
                             <p>Sign in with social platforms</p>
 
                             <div className="social-icons d-flex w-100 justify-content-center ">
-                                <FontAwesomeIcon onClick="" icon={faFacebook} className="social-icon mr-3"></FontAwesomeIcon>
                                 <FontAwesomeIcon onClick={handleGoogleSignIn} icon={faGoogle} className="social-icon mr-3"></FontAwesomeIcon>
-                                <FontAwesomeIcon onClick="icons" icon={faGithub} className="social-icon mr-3"></FontAwesomeIcon>
+                                <FontAwesomeIcon onClick={handleGithhubSignIn} icon={faGithub} className="social-icon mr-3"></FontAwesomeIcon>
+                                <FontAwesomeIcon onClick="" icon={faFacebook} className="social-icon mr-3"></FontAwesomeIcon>
                             </div>
                         </form>
                     </Col>
@@ -148,7 +154,7 @@ const Login = () => {
                         <img src={avatar} className="img-fluid rounded avatar mb-2" alt="" />
                         <h4 className="display-6">User Authentication</h4>
                         <p style={{ color: 'red' }}>{user.error}</p>
-                        {user.success && <p style={{ color: 'green' }}>User {newUser ? 'Created' : 'Logged In'} Successfully</p>}
+                        {user.success && <p style={{ color: 'green' }}>User {!newUser ? 'Created' : 'Logged In'} Successfully</p>}
                         <form action="" onSubmit={handleSubmit} className="mt-4">
                             <div className="input-field mb-3">
                                 <FontAwesomeIcon className="icons" icon={faUser}></FontAwesomeIcon>
@@ -173,9 +179,10 @@ const Login = () => {
                             <p>Sign in with social platforms</p>
 
                             <div className="social-icons d-flex w-100 justify-content-center  ">
-                                <FontAwesomeIcon onClick="" icon={faFacebook} className="social-icon mr-3"></FontAwesomeIcon>
+    
                                 <FontAwesomeIcon onClick={handleGoogleSignIn} icon={faGoogle} className="social-icon mr-3"></FontAwesomeIcon>
-                                <FontAwesomeIcon onClick="icons" icon={faGithub} className="social-icon mr-3"></FontAwesomeIcon>
+                                <FontAwesomeIcon onClick={handleGithhubSignIn} icon={faGithub} className="social-icon mr-3"></FontAwesomeIcon>
+                                <FontAwesomeIcon onClick="" icon={faFacebook} className="social-icon mr-3"></FontAwesomeIcon>
                             </div>
                         </form>
                     </Col>
