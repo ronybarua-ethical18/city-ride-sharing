@@ -1,3 +1,7 @@
 .vehicle-image{
     height:200px;
 }
+#card-bg{
+    background-color: rgba(255, 255, 255, 0.3);
+    color:#fff;
+}

@@ -19,46 +19,48 @@ const Destination = () => {
     return (
         <Container>
             <Row className="mt-4 mb-4">
-                <Col md={4} className="bg-light p-4 text-left">
-                    {!result && <Form>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Pick from</Form.Label>
-                            <Form.Control onChange={event => setPickFrom(event.target.value)} type="text" placeholder="Pick from" />
-                        </Form.Group>
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Pick to</Form.Label>
-                            <Form.Control onChange={event => setPickTo(event.target.value)} type="text" placeholder="Pick to" />
-                        </Form.Group>
-                        <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Date</Form.Label>
-                            <Form.Control onChange={event => setDate(event.target.value)} type="date" placeholder="Date" />
-                        </Form.Group>
-                        <Button className="main-button" onClick={() => setResult(!result)} variant="primary" className="w-100">
-                            Search
-                        </Button>
-                    </Form>}
-                    {result && <div className="search-result w-100">
-                        <div className="destination bg-primary p-3">
-                            <p className="text-white"><b className="mr-3">From :</b>{pickFrom}</p>
-                            <p className="text-white"><b className="mr-3">To :</b>{pickTo}</p>
-                            <p className="text-white"><b className="mr-3">Date :</b>{date}</p>
-                        </div>
-                        <div className="vehicle-details p-2 mb-2 bg-white d-flex justify-content-center align-items-center">
-                            <img src={image} className="vehicles-image mr-auto" alt="" />
-                            <p className="mr-auto">{name}</p>
-                            <p>${cost}</p>
-                        </div>
-                        <div className="vehicle-details p-2 mb-2 bg-white d-flex justify-content-center align-items-center">
-                            <img src={image} className="vehicles-image mr-auto" alt="" />
-                            <p className="mr-auto">{name}</p>
-                            <p>${cost}</p>
-                        </div>
-                        <div className="vehicle-details p-2 mb-2 bg-white d-flex justify-content-center align-items-center">
-                            <img src={image} className="vehicles-image mr-auto" alt="" />
-                            <p className="mr-auto">{name}</p>
-                            <p>${cost}</p>
-                        </div>
-                    </div>}
+                <Col md={4} className=" p-4 text-left ">
+                    <div className="destination-card shadow p-3">
+                        {!result && <Form>
+                            <Form.Group controlId="formBasicEmail">
+                                <Form.Label>Pick from</Form.Label>
+                                <Form.Control onChange={event => setPickFrom(event.target.value)} type="text" placeholder="Pick from" />
+                            </Form.Group>
+                            <Form.Group controlId="formBasicPassword">
+                                <Form.Label>Pick to</Form.Label>
+                                <Form.Control onChange={event => setPickTo(event.target.value)} type="text" placeholder="Pick to" />
+                            </Form.Group>
+                            <Form.Group controlId="formBasicPassword">
+                                <Form.Label>Date</Form.Label>
+                                <Form.Control onChange={event => setDate(event.target.value)} type="date" placeholder="Date" />
+                            </Form.Group>
+                            <Button className="main-button" onClick={() => setResult(!result)} variant="primary" className="dest-card w-100">
+                                Search
+                            </Button>
+                        </Form>}
+                        {result && <div className="search-result w-100">
+                            <div className="destination dest-card p-3">
+                                <p className="text-white"><b className="mr-3">From :</b>{pickFrom}</p>
+                                <p className="text-white"><b className="mr-3">To :</b>{pickTo}</p>
+                                <p className="text-white"><b className="mr-3">Date :</b>{date}</p>
+                            </div>
+                            <div className="vehicle-details p-2 mb-2 bg-white d-flex justify-content-center align-items-center">
+                                <img src={image} className="vehicles-image mr-auto" alt="" />
+                                <p className="mr-auto">{name}</p>
+                                <p>${cost}</p>
+                            </div>
+                            <div className="vehicle-details p-2 mb-2 bg-white d-flex justify-content-center align-items-center">
+                                <img src={image} className="vehicles-image mr-auto" alt="" />
+                                <p className="mr-auto">{name}</p>
+                                <p>${cost}</p>
+                            </div>
+                            <div className="vehicle-details p-2 mb-2 bg-white d-flex justify-content-center align-items-center">
+                                <img src={image} className="vehicles-image mr-auto" alt="" />
+                                <p className="mr-auto">{name}</p>
+                                <p>${cost}</p>
+                            </div>
+                        </div>}
+                    </div>
                 </Col>
                 <Col md={8}>
                    <GoogleMap></GoogleMap>

@@ -96,7 +96,7 @@ const Login = () => {
             })
     } 
     return (
-        <div className="log-in authentic-field">
+        <div className="log-in authentic-field text-white">
 
             {/* rendering sign up  */}
             {newUser && <Container className="signUp h-100">
