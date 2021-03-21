@@ -2,8 +2,7 @@ import './App.css';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
@@ -12,32 +11,36 @@ import { createContext, useState } from 'react';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Destination from './components/Destination/Destination';
 import { Container } from 'react-bootstrap';
+import RideDetails from './components/RideDetails/RideDetails';
 export const UserContext = createContext();
 function App() {
-  const[loggedInUser, setLoggedInUser] = useState({});
+  const [loggedInUser, setLoggedInUser] = useState({});
   return (
     <div className="App">
-   <Container>
-        <UserContext.Provider value = {[loggedInUser, setLoggedInUser]}>
+      <Container>
+        <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
           <Router>
-            <Header loggedInUser = {loggedInUser}></Header>
+            <Header loggedInUser={loggedInUser}></Header>
             <Switch>
               <Route exact path="/">
-              <Home></Home>
+                <Home></Home>
               </Route>
               <Route path="/home">
                 <Home></Home>
               </Route>
               <PrivateRoute path="/vehicles/:vehicleId">
+                <RideDetails></RideDetails>
+              </PrivateRoute>
+              <PrivateRoute path="/destination">
                 <Destination></Destination>
               </PrivateRoute>
               <Route path="/login">
-                <Login></Login>
+               <Login></Login>
               </Route>
             </Switch>
           </Router>
         </UserContext.Provider>
-   </Container>
+      </Container>
     </div>
   );
 }

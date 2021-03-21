@@ -1,6 +1,6 @@
 import { faBiking } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Container, Jumbotron, Nav, Navbar } from 'react-bootstrap';
+import {  Container,  Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './Header.css';
 const Header = (props) => {
@@ -17,7 +17,7 @@ const Header = (props) => {
                     <Nav className="ml-auto text-white">
                         <Link to="/home"className="text-white">Home</Link>
                         <Link to="/destination" className="text-white ml-3 mr-3">Destination</Link>
-                        <Link className="text-white mr-3" to="/login">Login</Link>
+                        {!loggedInUser.email && <Link className="text-white mr-3" to="/login">Login</Link>}
                         <span><b className="text-white">{loggedInUser.email}</b></span>
                     </Nav>
                 </Navbar.Collapse>

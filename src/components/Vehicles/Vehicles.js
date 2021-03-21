@@ -16,13 +16,6 @@ const Vehicles = (props) => {
                 <Card.Img variant="top" className="vehicle-image" src={image} />
                 <Card.Body>
                     <Card.Title><b>{name}</b></Card.Title>
-                    <Card.Text>
-                        Some quick example text to build on the card title
-                    </Card.Text>
-                    <Card.Text>
-                      <b>Cost: {cost}</b>
-                    </Card.Text>
-                    
                 </Card.Body>
             </Card>
         </Container>

@@ -6,7 +6,7 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faLock, faSignature } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Col, Container, Row } from 'react-bootstrap';
-import { createUserWithEmailAndPassword, githubSignIn, googleSignIn, initializeFirebase, signInWithEmailAndPassword } from './LoginManager';
+import { createUserWithEmailAndPassword, facebookSignIn, githubSignIn, googleSignIn, initializeFirebase, signInWithEmailAndPassword } from './LoginManager';
 import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router';
 const Login = () => {
@@ -26,8 +26,8 @@ const Login = () => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const [newUser, setNewUser] = useState(false);
     const [password, setPassword] = useState('');
-    const [isPassCorrect, setISPassCorrect] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    // const [isPassCorrect, setISPassCorrect] = useState('');
     const [isError, setIsError] = useState('');
 
     let history = useHistory();
@@ -86,7 +86,6 @@ const Login = () => {
                     handleResponse(res, true);
                     console.log(res);
                 })
-
         }
         if (!newUser && user.email && user.password) {
             signInWithEmailAndPassword(user.email, user.password)
@@ -94,13 +93,6 @@ const Login = () => {
                     handleResponse(res, true);
                 })
         }
-        if(password !== user.password){
-            setISPassCorrect('Entered Password is wrong');
-        }
-        else{
-            setISPassCorrect('');
-        }
-
         event.preventDefault();
     }
     const handleGoogleSignIn = () => {
@@ -111,6 +103,13 @@ const Login = () => {
     }
     const handleGithhubSignIn = () => {
         githubSignIn()
+            .then(res => {
+                handleResponse(res, true);
+                console.log(res);
+            })
+    }
+    const handleFacebookSignIn = () => {
+        facebookSignIn()
             .then(res => {
                 handleResponse(res, true);
                 console.log(res);
@@ -174,7 +173,7 @@ const Login = () => {
                                 <FontAwesomeIcon onClick={handleGithhubSignIn}
                                     icon={faGithub}
                                     className="social-icon mr-3"></FontAwesomeIcon>
-                                <FontAwesomeIcon onClick=""
+                                <FontAwesomeIcon onClick={handleFacebookSignIn}
                                     icon={faFacebook}
                                     className="social-icon mr-3"></FontAwesomeIcon>
                             </div>
@@ -206,7 +205,6 @@ const Login = () => {
                                     placeholder="Enter password" id="" required />
                             </div>
                             <p>{passwordError}</p>
-                            <p>{isPassCorrect}</p>
                             <div className="checkbox d-flex justify-content-space-between mb-2">
                                 <div>
                                     <input type="checkbox" onChange="" name="newUser" id="" />
@@ -228,7 +226,7 @@ const Login = () => {
                                 <FontAwesomeIcon onClick={handleGithhubSignIn}
                                     icon={faGithub}
                                     className="social-icon mr-3"></FontAwesomeIcon>
-                                <FontAwesomeIcon onClick=""
+                                <FontAwesomeIcon onClick={handleFacebookSignIn}
                                     icon={faFacebook}
                                     className="social-icon mr-3"></FontAwesomeIcon>
                             </div>

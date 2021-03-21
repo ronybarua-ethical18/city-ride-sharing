@@ -1,20 +1,21 @@
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import './Destination.css';
+import './RideDetails.css';
 import serviceData from '../../FakeData/fakeData.json';
-import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
-const Destination = () => {
+const RideDetails = () => {
     // list of states 
     const [pickFrom, setPickFrom] = useState('');
     const [pickTo, setPickTo] = useState('');
     const [date, setDate] = useState('');
     const [result, setResult] = useState(false);
 
-    const [riders, setRiders] = useState([]);
-    useEffect(() =>{
-        setRiders(serviceData);
-    },[])
+    const { vehicleId } = useParams();
+
+    const vehicles = serviceData.find(vehicle => vehicle.id === vehicleId);
+    const { image, name, seat, cost } = vehicles;
 
     return (
         <Container>
@@ -44,16 +45,33 @@ const Destination = () => {
                                 <p className="text-white"><b className="mr-3">To :</b>{pickTo}</p>
                                 <p className="text-white"><b className="mr-3">Date :</b>{date}</p>
                             </div>
-                            {
-                                riders.map(rider => <div className="vehicle-details p-2 mb-2 bg-white d-flex justify-content-center align-items-center">
-                                <img src={rider.image} className="vehicles-image mr-auto" alt="" />
-                                <p className="mr-auto">{rider.name}</p>
+                            <div className="vehicle-details p-2 mb-2 bg-white d-flex justify-content-center align-items-center">
+                                <img src={image} className="vehicles-image mr-auto" alt="" />
+                                <p className="mr-auto">{name}</p>
                                 <p className="mr-auto">
                                     <FontAwesomeIcon className="mr-2" 
-                                    icon={faUsers}></FontAwesomeIcon>{rider.seat}
+                                    icon={faUsers}></FontAwesomeIcon>{seat}
                                 </p>
-                                <p>${rider.cost}</p>
-                            </div>)}
+                                <p>${cost}</p>
+                            </div>
+                            <div className="vehicle-details p-2 mb-2 bg-white d-flex justify-content-center align-items-center">
+                                <img src={image} className="vehicles-image mr-auto" alt="" />
+                                <p className="mr-auto">{name}</p>
+                                <p className="mr-auto">
+                                    <FontAwesomeIcon className="mr-2" 
+                                    icon={faUsers}></FontAwesomeIcon>{seat}
+                                </p>
+                                <p>${cost}</p>
+                            </div>
+                            <div className="vehicle-details p-2 mb-2 bg-white d-flex justify-content-center align-items-center">
+                                <img src={image} className="vehicles-image mr-auto" alt="" />
+                                <p className="mr-auto">{name}</p>
+                                <p className="mr-auto">
+                                    <FontAwesomeIcon className="mr-2" 
+                                    icon={faUsers}></FontAwesomeIcon>{seat}
+                                </p>
+                                <p>${cost}</p>
+                            </div>
                         </div>}
                     </div>
                 </Col>
@@ -77,4 +95,4 @@ const Destination = () => {
 };
 
 
-export default Destination;
+export default RideDetails;

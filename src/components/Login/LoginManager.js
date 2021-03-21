@@ -33,18 +33,35 @@ export const githubSignIn = () => {
 
     return firebase.auth().signInWithPopup(githubProvider)
         .then((result) => {
-            /** @type {firebase.auth.OAuthCredential} */
-            var token = result.credential.accessToken;
-            var user = result.user;
-            user.success = true;
-            return user;
+            const { displayName, photoURL, email } = result.user;
+            const signedInUser = {
+                isSignedIn: true,
+                name: displayName,
+                email: email,
+                photo: photoURL,
+                success: true
+            };
+            console.log(signedInUser);
+            return signedInUser;
         }).catch((error) => {
             var errorCode = error.code;
             var errorMessage = error.message;
             console.log(errorCode, errorMessage)
         });
 }
-
+export const facebookSignIn = () =>{
+    const facebookProvider = new firebase.auth.FacebookAuthProvider();
+    return firebase.auth().signInWithPopup(facebookProvider).then(function(result) {
+      var token = result.credential.accessToken;
+      var user = result.user;
+      console.log(user);
+      return user;
+    }).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorCode, errorMessage)
+    });
+}
 export const createUserWithEmailAndPassword = (name, email, password) => {
     return firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((res) => {
