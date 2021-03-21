@@ -5,6 +5,7 @@ import { useParams } from 'react-router';
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
+import MapContainer from '../GoogleMap/Map';
 const RideDetails = () => {
     // list of states 
     const [pickFrom, setPickFrom] = useState('');
@@ -18,7 +19,7 @@ const RideDetails = () => {
     const { image, name, seat, cost } = vehicles;
 
     return (
-        <Container>
+        <Container fluid>
             <Row className="mt-4 mb-4">
                 <Col md={4} className=" p-4 text-left ">
                     <div className="destination-card shadow p-3">
@@ -49,8 +50,8 @@ const RideDetails = () => {
                                 <img src={image} className="vehicles-image mr-auto" alt="" />
                                 <p className="mr-auto">{name}</p>
                                 <p className="mr-auto">
-                                    <FontAwesomeIcon className="mr-2" 
-                                    icon={faUsers}></FontAwesomeIcon>{seat}
+                                    <FontAwesomeIcon className="mr-2"
+                                        icon={faUsers}></FontAwesomeIcon>{seat}
                                 </p>
                                 <p>${cost}</p>
                             </div>
@@ -58,8 +59,8 @@ const RideDetails = () => {
                                 <img src={image} className="vehicles-image mr-auto" alt="" />
                                 <p className="mr-auto">{name}</p>
                                 <p className="mr-auto">
-                                    <FontAwesomeIcon className="mr-2" 
-                                    icon={faUsers}></FontAwesomeIcon>{seat}
+                                    <FontAwesomeIcon className="mr-2"
+                                        icon={faUsers}></FontAwesomeIcon>{seat}
                                 </p>
                                 <p>${cost}</p>
                             </div>
@@ -67,8 +68,8 @@ const RideDetails = () => {
                                 <img src={image} className="vehicles-image mr-auto" alt="" />
                                 <p className="mr-auto">{name}</p>
                                 <p className="mr-auto">
-                                    <FontAwesomeIcon className="mr-2" 
-                                    icon={faUsers}></FontAwesomeIcon>{seat}
+                                    <FontAwesomeIcon className="mr-2"
+                                        icon={faUsers}></FontAwesomeIcon>{seat}
                                 </p>
                                 <p>${cost}</p>
                             </div>
@@ -77,16 +78,7 @@ const RideDetails = () => {
                 </Col>
                 <Col md={8} className="p-4">
                     <div className="google-map">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8195613507864!3d-6.194741395493371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e67356080477!2sPT%20Kulkul%20Teknologi%20Internasional!5e0!3m2!1sen!2sid!4v1601138221085!5m2!1sen!2sid"
-                            width="100%"
-                            height="500"
-                            frameBorder="0"
-                            style={{ border: 0 }}
-                            allowFullScreen=""
-                            aria-hidden="false"
-                            tabIndex="0"
-                        />
+                        <MapContainer></MapContainer>
                     </div>
                 </Col>
             </Row>

@@ -17,8 +17,8 @@ const Home = () => {
                     {
                         vehicles.map(vehicle => {
                             return <Col md={4} sm={6} xs={12}>
-                                        <Vehicles vehicle={vehicle}></Vehicles>
-                                  </Col>
+                                <Vehicles vehicle={vehicle}></Vehicles>
+                            </Col>
                         })
                     }
                 </Row>

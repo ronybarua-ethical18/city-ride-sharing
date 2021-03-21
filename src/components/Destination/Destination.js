@@ -4,6 +4,7 @@ import serviceData from '../../FakeData/fakeData.json';
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
+import MapContainer from '../GoogleMap/Map';
 const Destination = () => {
     // list of states 
     const [pickFrom, setPickFrom] = useState('');
@@ -12,12 +13,12 @@ const Destination = () => {
     const [result, setResult] = useState(false);
 
     const [riders, setRiders] = useState([]);
-    useEffect(() =>{
+    useEffect(() => {
         setRiders(serviceData);
-    },[])
+    }, [])
 
     return (
-        <Container>
+        <Container fluid>
             <Row className="mt-4 mb-4">
                 <Col md={4} className=" p-4 text-left ">
                     <div className="destination-card shadow p-3">
@@ -46,35 +47,23 @@ const Destination = () => {
                             </div>
                             {
                                 riders.map(rider => <div className="vehicle-details p-2 mb-2 bg-white d-flex justify-content-center align-items-center">
-                                <img src={rider.image} className="vehicles-image mr-auto" alt="" />
-                                <p className="mr-auto">{rider.name}</p>
-                                <p className="mr-auto">
-                                    <FontAwesomeIcon className="mr-2" 
-                                    icon={faUsers}></FontAwesomeIcon>{rider.seat}
-                                </p>
-                                <p>${rider.cost}</p>
-                            </div>)}
+                                    <img src={rider.image} className="vehicles-image mr-auto" alt="" />
+                                    <p className="mr-auto">{rider.name}</p>
+                                    <p className="mr-auto">
+                                        <FontAwesomeIcon className="mr-2"
+                                            icon={faUsers}></FontAwesomeIcon>{rider.seat}
+                                    </p>
+                                    <p>${rider.cost}</p>
+                                </div>)}
                         </div>}
                     </div>
                 </Col>
                 <Col md={8} className="p-4">
-                    <div className="google-map">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d106.8195613507864!3d-6.194741395493371!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5390917b759%3A0x6b45e67356080477!2sPT%20Kulkul%20Teknologi%20Internasional!5e0!3m2!1sen!2sid!4v1601138221085!5m2!1sen!2sid"
-                            width="100%"
-                            height="500"
-                            frameBorder="0"
-                            style={{ border: 0 }}
-                            allowFullScreen=""
-                            aria-hidden="false"
-                            tabIndex="0"
-                        />
-                    </div>
+                    <MapContainer></MapContainer>
                 </Col>
             </Row>
         </Container>
     );
 };
-
 
 export default Destination;

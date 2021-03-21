@@ -49,17 +49,17 @@ export const githubSignIn = () => {
             console.log(errorCode, errorMessage)
         });
 }
-export const facebookSignIn = () =>{
+export const facebookSignIn = () => {
     const facebookProvider = new firebase.auth.FacebookAuthProvider();
-    return firebase.auth().signInWithPopup(facebookProvider).then(function(result) {
-      var token = result.credential.accessToken;
-      var user = result.user;
-      console.log(user);
-      return user;
-    }).catch(function(error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log(errorCode, errorMessage)
+    return firebase.auth().signInWithPopup(facebookProvider).then(function (result) {
+        var token = result.credential.accessToken;
+        var user = result.user;
+        console.log(user);
+        return user;
+    }).catch(function (error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorCode, errorMessage)
     });
 }
 export const createUserWithEmailAndPassword = (name, email, password) => {
@@ -90,6 +90,7 @@ export const signInWithEmailAndPassword = (email, password) => {
             const newUserInfo = {};
             newUserInfo.success = false;
             newUserInfo.error = error.message;
+            console.log(newUserInfo);
             return newUserInfo;
         });
 }

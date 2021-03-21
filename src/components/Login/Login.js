@@ -27,7 +27,7 @@ const Login = () => {
     const [newUser, setNewUser] = useState(false);
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    // const [isPassCorrect, setISPassCorrect] = useState('');
+    const [isPassCorrect, setISPassCorrect] = useState('');
     const [isError, setIsError] = useState('');
 
     let history = useHistory();
@@ -45,7 +45,6 @@ const Login = () => {
                 setEmailError('');
             }
         }
-
         if (event.target.name === 'password') {
             const passwordLength = event.target.value.length > 6;
             const hasNumber = /\d{1}/.test(event.target.value);
@@ -64,13 +63,11 @@ const Login = () => {
         } else {
             setIsError("");
         }
-
         if (isFormValid) {
             const newUserInfo = { ...user };
             newUserInfo[event.target.name] = event.target.value;
             setUser(newUserInfo);
         }
-
     }
     const handleResponse = (res, redirect) => {
         setUser(res);
@@ -84,13 +81,19 @@ const Login = () => {
             createUserWithEmailAndPassword(user.name, user.email, user.password)
                 .then(res => {
                     handleResponse(res, true);
-                    console.log(res);
+                    if (res.success === false) {
+                        let error = user.error;
+                        error = 'Check your email or password';
+                        return setISPassCorrect(error);
+                    }
                 })
         }
-        if (!newUser && user.email && user.password) {
+        if (user.email && user.password) {
             signInWithEmailAndPassword(user.email, user.password)
                 .then(res => {
                     handleResponse(res, true);
+                    setISPassCorrect(res.error);
+                    console.log(user);
                 })
         }
         event.preventDefault();
@@ -205,6 +208,7 @@ const Login = () => {
                                     placeholder="Enter password" id="" required />
                             </div>
                             <p>{passwordError}</p>
+                            <p>{isPassCorrect}</p>
                             <div className="checkbox d-flex justify-content-space-between mb-2">
                                 <div>
                                     <input type="checkbox" onChange="" name="newUser" id="" />
