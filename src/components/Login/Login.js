@@ -27,7 +27,6 @@ const Login = () => {
     const [newUser, setNewUser] = useState(false);
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [isPassCorrect, setISPassCorrect] = useState('');
     const [isError, setIsError] = useState('');
 
     let history = useHistory();
@@ -81,20 +80,14 @@ const Login = () => {
             createUserWithEmailAndPassword(user.name, user.email, user.password)
                 .then(res => {
                     handleResponse(res, true);
-                    if (res.success === false) {
-                        let error = user.error;
-                        error = 'Check your email or password';
-                        return setISPassCorrect(error);
-                    }
                 })
         }
-        if (user.email && user.password) {
+        if (!newUser && user.email && user.password) {
             signInWithEmailAndPassword(user.email, user.password)
                 .then(res => {
                     handleResponse(res, true);
-                    setISPassCorrect(res.error);
-                    console.log(user);
                 })
+                
         }
         event.preventDefault();
     }
@@ -200,6 +193,7 @@ const Login = () => {
                                     placeholder="Enter your email" required />
                             </div>
                             <p>{emailError}</p>
+                            
                             <div className="input-field mb-3">
                                 <FontAwesomeIcon className="icons" icon={faLock}></FontAwesomeIcon>
                                 <input onBlur={handleBlur}
@@ -208,7 +202,7 @@ const Login = () => {
                                     placeholder="Enter password" id="" required />
                             </div>
                             <p>{passwordError}</p>
-                            <p>{isPassCorrect}</p>
+                            <p>{loggedInUser.error}</p>
                             <div className="checkbox d-flex justify-content-space-between mb-2">
                                 <div>
                                     <input type="checkbox" onChange="" name="newUser" id="" />
@@ -216,14 +210,11 @@ const Login = () => {
                                 </div>
                                 <a href="/" className="ml-auto"><b className="text-white">Forgot Password?</b></a>
                             </div>
-
                             <button type="submit" className="submit-button mb-2">Log In</button>
                             <p>Don't have an account? <b className="text-primary"
                                 onClick={() => setNewUser(!newUser)}><b className="text-white">create new account</b></b></p>
                             <p>Sign in with social platforms</p>
-
                             <div className="social-icons d-flex w-100 justify-content-center  ">
-
                                 <FontAwesomeIcon onClick={handleGoogleSignIn}
                                     icon={faGoogle}
                                     className="social-icon mr-3"></FontAwesomeIcon>
